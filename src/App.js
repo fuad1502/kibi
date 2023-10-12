@@ -89,7 +89,7 @@ function updateStatesNormalKey(
       newWordScores.push([]);
     }
   }
-  if (word[letterIndex] == " " && correct && setNewStartWord()) {
+  if (word[letterIndex] == " " && correct && isEndOfLine()) {
     newStartWord = newWordIndex;
   }
 
@@ -120,7 +120,7 @@ function updateStatesBackspace(words, wordIndex, letterIndex, wordScores) {
   };
 }
 
-function setNewStartWord() {
+function isEndOfLine() {
   const currentLetterOffset =
     document.getElementsByClassName("currentLetter")[0].offsetTop;
   const nextLetterOffset =

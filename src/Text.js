@@ -1,4 +1,10 @@
-export default function Text({ words, wordIndex, letterIndex, wordScores, startWord }) {
+export default function Text({
+  words,
+  wordIndex,
+  letterIndex,
+  wordScores,
+  startWord,
+}) {
   let spans = [];
   console.log(startWord);
   for (let i = startWord; i < words.length; i++) {
@@ -6,7 +12,7 @@ export default function Text({ words, wordIndex, letterIndex, wordScores, startW
     for (let j = 0; j < word.length; j++) {
       const letter = word[j];
       let status = wordScores[i];
-      if(status != undefined) {
+      if (status != undefined) {
         status = status[j];
       }
       if (status == 0) {
@@ -25,9 +31,5 @@ export default function Text({ words, wordIndex, letterIndex, wordScores, startW
     }
   }
 
-  return (
-    <div className="text">
-      <p>{spans}</p>
-    </div>
-  );
+  return <div className="text">{spans}</div>;
 }
