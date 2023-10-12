@@ -6,7 +6,6 @@ export default function Text({
   startWord,
 }) {
   let spans = [];
-  console.log(startWord);
   for (let i = startWord; i < words.length; i++) {
     const word = words[i];
     for (let j = 0; j < word.length; j++) {
