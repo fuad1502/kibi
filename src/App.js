@@ -47,6 +47,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <h1>KIBI ⌨️ </h1>
       <Text
         words={words}
         wordIndex={wordIndex}
