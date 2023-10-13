@@ -9,16 +9,55 @@ body {
   margin: 0;
 }
 
+h1 {
+  margin: 0;
+}
+
 .app {
   width: min(50em, 100%);
   height: min(25em, 100vh);
   margin: 0 auto;
   display: grid;
-  grid-template-rows: 0fr 0fr 1fr;
+  grid-template-rows: 0fr 1fr;
 }
 
-h1 {
-  margin: 0;
+.gameContainer {
+  position: relative;
+}
+
+.game {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 0fr 1fr 0fr;
+  background: gray;
+  color: white;
+}
+
+.gameOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 255, 0.25);
+}
+
+[hidden] {
+  display: none;
+}
+
+.gameOverlay p {
+  align-self: center;
+  color: white;
+  font-size: 1em;
+}
+
+.score {
+  background: orangered;
+  color: white;
 }
 
 .text {
@@ -49,12 +88,5 @@ h1 {
 }
 
 .keyboard {
-  background: gray;
-  color: white;
   font-size: 10em;
-}
-
-.score {
-  background: orangered;
-  color: white;
 }

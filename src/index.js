@@ -7,6 +7,7 @@ import App from "./App";
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
+    <h1>KIBI ⌨️ </h1>
     <App />
   </StrictMode>,
 );

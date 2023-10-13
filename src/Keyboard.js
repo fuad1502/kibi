@@ -4,7 +4,7 @@ export default function Keyboard({ pressedKey, handlePressedKey }) {
   }
 
   return (
-    <div className="keyboard" onKeyDown={handleKeyDown} tabIndex="0">
+    <div className="keyboard" tabIndex="0" onKeyDown={handleKeyDown}>
       {pressedKey}
     </div>
   );
