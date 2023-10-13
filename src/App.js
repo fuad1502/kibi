@@ -1,6 +1,7 @@
 import Text from "./Text";
 import Keyboard from "./Keyboard";
 import Timer from "./Timer";
+import Score from "./Score";
 import { getWords } from "./TextGenerator";
 import { useState, useEffect } from "react";
 
@@ -12,6 +13,7 @@ export default function App() {
   const [wordScores, setWordScores] = useState([[]]);
   const [startWord, setStartWord] = useState(0);
   const [gameStatus, setGameStatus] = useState("INIT");
+  const [timer, setTimer] = useState(30);
   const [seconds, setSeconds] = useState(0);
 
   function handlePressedKey(pressedKey) {
@@ -24,7 +26,7 @@ export default function App() {
 
     if (gameStatus == "INIT") {
       setGameStatus("STARTED");
-      setSeconds(30);
+      setSeconds(timer);
     }
 
     let updatedStates;
@@ -57,7 +59,7 @@ export default function App() {
   }
 
   function handleTimeout() {
-    if (seconds == 0 && gameStatus == "STARTED") {
+    if (seconds == 1 && gameStatus == "STARTED") {
       setGameStatus("ENDED");
     } else if (seconds != 0) {
       setSeconds(seconds - 1);
@@ -70,7 +72,10 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>KIBI ⌨️ </h1>
+      <div>
+        <h1>KIBI ⌨️ </h1>
+        <Timer seconds={seconds} />
+      </div>
       <Text
         words={words}
         wordIndex={wordIndex}
@@ -79,7 +84,7 @@ export default function App() {
         startWord={startWord}
       />
       <Keyboard pressedKey={pressedKey} handlePressedKey={handlePressedKey} />
-      <Timer seconds={seconds} />
+      <Score gameStatus={gameStatus} timer={timer} wordScores={wordScores} />
     </div>
   );
 }

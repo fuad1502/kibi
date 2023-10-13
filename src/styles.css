@@ -53,3 +53,8 @@ h1 {
   color: white;
   font-size: 10em;
 }
+
+.score {
+  background: orangered;
+  color: white;
+}
