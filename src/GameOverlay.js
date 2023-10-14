@@ -1,4 +1,4 @@
-export default function GameOverlay({ engage, gameStatus }) {
+export default function GameOverlay({ engage, gameStatus, restartGame }) {
   function overlayMessage(gameStatus) {
     if (gameStatus == "INIT") {
       return "Click here and start typing!";
@@ -19,7 +19,12 @@ export default function GameOverlay({ engage, gameStatus }) {
 
   return (
     <div className="gameOverlay" hidden={handleHiddenProp(engage, gameStatus)}>
-      <p>{overlayMessage(gameStatus)}</p>
+      <span>
+        <p>{overlayMessage(gameStatus)}</p>
+        <button onClick={restartGame} hidden={gameStatus != "ENDED"}>
+          ⟲
+        </button>
+      </span>
     </div>
   );
 }

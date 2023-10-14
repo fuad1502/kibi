@@ -49,10 +49,30 @@ h1 {
   display: none;
 }
 
-.gameOverlay p {
+.gameOverlay > span {
   align-self: center;
+  display: flex;
+  flex-flow: column;
+}
+
+.gameOverlay > span p {
+  margin: 0;
   color: white;
-  font-size: 1em;
+}
+
+.gameOverlay > span button {
+  background: rgba(0,0,0,0);
+  border: 0px;
+  font-size: 2em;
+  color: white;
+}
+
+.gameOverlay > span button:hover {
+  cursor: pointer;
+}
+
+.gameOverlay > span button:active {
+  color: gray;
 }
 
 .score {

@@ -11,6 +11,15 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
   const [words, setWords] = useState(getWords());
   const [wordScores, setWordScores] = useState([[]]);
   const [startWord, setStartWord] = useState(0);
+  const [justRestarted, setJustRestarted] = useState(true);
+
+  if (!justRestarted && gameStatus == "INIT") {
+    setWordIndex(0);
+    setLetterIndex(0);
+    setWordScores([[]]);
+    setStartWord(0);
+    setJustRestarted(true);
+  }
 
   function handlePressedKey(pressedKey) {
     if (
@@ -22,6 +31,7 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
 
     if (gameStatus == "INIT") {
       setGameStatus("STARTED");
+      setJustRestarted(false);
       startTimer();
     }
 

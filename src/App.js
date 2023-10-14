@@ -1,6 +1,6 @@
 import Timer from "./Timer";
 import Game from "./Game";
-import GameOverlay from "./GameOverlay"
+import GameOverlay from "./GameOverlay";
 import { useState, useEffect } from "react";
 
 export default function App() {
@@ -34,6 +34,11 @@ export default function App() {
     setEngage(false);
   }
 
+  function restartGame() {
+    setGameStatus("INIT");
+    setSeconds(0);
+  }
+
   return (
     <div className="app">
       <Timer seconds={seconds} />
@@ -43,7 +48,11 @@ export default function App() {
         onFocus={handleFocus}
         onBlur={handleBlur}
       >
-        <GameOverlay engage={engage} gameStatus={gameStatus}/>
+        <GameOverlay
+          engage={engage}
+          gameStatus={gameStatus}
+          restartGame={restartGame}
+        />
         <Game
           gameStatus={gameStatus}
           setGameStatus={setGameStatus}
