@@ -14,18 +14,39 @@ export default function Text({
       if (status != undefined) {
         status = status[j];
       }
+      const key = i * 10000 + j;
       if (status == 0) {
-        spans.push(<span className="correctLetter">{letter}</span>);
+        spans.push(
+          <span key={key} className="correctLetter">
+            {letter}
+          </span>,
+        );
       } else if (status == 1) {
-        spans.push(<span className="incorrectLetter">{letter}</span>);
+        spans.push(
+          <span key={key} className="incorrectLetter">
+            {letter}
+          </span>,
+        );
       } else if (status == 2) {
-        spans.push(<span className="additional">{letter}</span>);
+        spans.push(
+          <span key={key} className="additional">
+            {letter}
+          </span>,
+        );
       } else if (i == wordIndex && j == letterIndex) {
-        spans.push(<span className="currentLetter">{letter}</span>);
+        spans.push(
+          <span key={key} className="currentLetter">
+            {letter}
+          </span>,
+        );
       } else if (i == wordIndex + 1 && j == 0) {
-        spans.push(<span className="nextLetter">{letter}</span>);
+        spans.push(
+          <span key={key} className="nextLetter">
+            {letter}
+          </span>,
+        );
       } else {
-        spans.push(<span>{letter}</span>);
+        spans.push(<span key={key}>{letter}</span>);
       }
     }
   }

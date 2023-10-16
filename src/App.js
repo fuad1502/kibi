@@ -4,7 +4,7 @@ import GameOverlay from "./GameOverlay";
 import { useState, useEffect } from "react";
 
 export default function App() {
-  const [gameStatus, setGameStatus] = useState("INIT");
+  const [gameStatus, setGameStatus] = useState("LOADING");
   const [timer, setTimer] = useState(30);
   const [seconds, setSeconds] = useState(0);
   const [engage, setEngage] = useState(false);
@@ -14,16 +14,17 @@ export default function App() {
   }
 
   function handleTimeout() {
-    if (seconds == 0 && gameStatus == "STARTED") {
+    if (seconds == 1 && gameStatus == "STARTED") {
       setGameStatus("ENDED");
-    } else if (seconds != 0) {
+    }
+    if (seconds != 0) {
       setSeconds(seconds - 1);
     }
   }
 
   useEffect(() => {
-    const id = setTimeout(handleTimeout, 1000);
-  });
+    setTimeout(handleTimeout, 1000);
+  }, [seconds]);
 
   function handleFocus() {
     document.getElementsByClassName("keyboard")[0].focus();
@@ -35,7 +36,7 @@ export default function App() {
   }
 
   function restartGame() {
-    setGameStatus("INIT");
+    setGameStatus("LOADING");
     setSeconds(0);
   }
 

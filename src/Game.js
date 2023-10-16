@@ -1,19 +1,60 @@
 import Text from "./Text";
 import Keyboard from "./Keyboard";
 import Score from "./Score";
-import { getWords } from "./TextGenerator";
-import { useState, useEffect } from "react";
+import { getRandomWords } from "./TextGenerator";
+import { useState } from "react";
 
 export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
+  const batchRead = 100;
   const [pressedKey, setPressedKey] = useState(null);
   const [wordIndex, setWordIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
-  const [words, setWords] = useState(getWords());
+  const [words, setWords] = useState([]);
   const [wordScores, setWordScores] = useState([[]]);
   const [startWord, setStartWord] = useState(0);
   const [justRestarted, setJustRestarted] = useState(true);
+  const [startedLoading, setStartedLoading] = useState(false);
 
-  if (!justRestarted && gameStatus == "INIT") {
+  // Load initial words
+  if (gameStatus == "LOADING" && !startedLoading) {
+    setStartedLoading(true);
+    getRandomWords(batchRead)
+      .then((data) => loaded(data))
+      .catch((error) => console.error(`Could not get random words: ${error}`));
+  }
+  function loaded(data) {
+    let newWords = [];
+    for (let i = 0; i < data.length; i++) {
+      newWords.push(data[i] + " ");
+    }
+    setWords(newWords);
+    setGameStatus("INIT");
+    setStartedLoading(false);
+  }
+
+  // Load additional words
+  if (
+    gameStatus == "STARTED" &&
+    !startedLoading &&
+    wordIndex > words.length / 2
+  ) {
+    let oldWords = words.slice();
+    setStartedLoading(true);
+    getRandomWords(batchRead)
+      .then((data) => append(oldWords, data))
+      .catch((error) => console.error(`Could not get random words: ${error}`));
+  }
+  function append(words, data) {
+    let newWords = words;
+    for (let i = 0; i < data.length; i++) {
+      newWords.push(data[i] + " ");
+    }
+    setWords(newWords);
+    setStartedLoading(false);
+  }
+
+  // Reinitialize states
+  if (gameStatus == "INIT" && !justRestarted) {
     setWordIndex(0);
     setLetterIndex(0);
     setWordScores([[]]);
@@ -22,10 +63,10 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
   }
 
   function handlePressedKey(pressedKey) {
-    if (
-      gameStatus == "ENDED" ||
-      (pressedKey.length > 1 && pressedKey.toLowerCase() != "backspace")
-    ) {
+    if (gameStatus == "ENDED") {
+      return;
+    }
+    if (pressedKey.length > 1 && pressedKey.toLowerCase() != "backspace") {
       return;
     }
 

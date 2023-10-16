@@ -1,6 +1,8 @@
 export default function GameOverlay({ engage, gameStatus, restartGame }) {
   function overlayMessage(gameStatus) {
-    if (gameStatus == "INIT") {
+    if (gameStatus == "LOADING") {
+      return "Loading words...";
+    } else if (gameStatus == "INIT") {
       return "Click here and start typing!";
     } else if (gameStatus == "STARTED") {
       return "Click here and continue typing!";
@@ -10,7 +12,7 @@ export default function GameOverlay({ engage, gameStatus, restartGame }) {
   }
 
   function handleHiddenProp(engage, gameStatus) {
-    if (gameStatus != "ENDED") {
+    if (gameStatus != "ENDED" && gameStatus != "LOADING") {
       return engage;
     } else {
       return false;
