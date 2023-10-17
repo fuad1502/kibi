@@ -4,7 +4,12 @@ import Score from "./Score";
 import { getRandomWords } from "./TextGenerator";
 import { useState } from "react";
 
-export default function Game({ gameStatus, setGameStatus, timer, onGameStart }) {
+export default function Game({
+  gameStatus,
+  timer,
+  onGameLoaded,
+  onGameStart,
+}) {
   const batchRead = 100;
   const [wordIndex, setWordIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
@@ -27,8 +32,8 @@ export default function Game({ gameStatus, setGameStatus, timer, onGameStart }) 
       newWords.push(data[i] + " ");
     }
     setWords(newWords);
-    setGameStatus("INIT");
     setStartedLoading(false);
+    onGameLoaded();
   }
 
   // Load additional words
@@ -71,7 +76,6 @@ export default function Game({ gameStatus, setGameStatus, timer, onGameStart }) 
     }
 
     if (gameStatus == "INIT") {
-      setGameStatus("STARTED");
       setJustRestarted(false);
       onGameStart();
     }
