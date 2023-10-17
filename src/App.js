@@ -13,6 +13,11 @@ export default function App() {
     setSeconds(timer);
   }
 
+  function handleGameRestart() {
+    setGameStatus("LOADING");
+    setSeconds(0);
+  }
+
   function handleTimeout() {
     if (seconds == 1 && gameStatus == "STARTED") {
       setGameStatus("ENDED");
@@ -35,11 +40,6 @@ export default function App() {
     setEngage(false);
   }
 
-  function restartGame() {
-    setGameStatus("LOADING");
-    setSeconds(0);
-  }
-
   return (
     <div className="app">
       <Timer seconds={seconds} />
@@ -52,7 +52,7 @@ export default function App() {
         <GameOverlay
           engage={engage}
           gameStatus={gameStatus}
-          restartGame={restartGame}
+          onGameRestart={handleGameRestart}
         />
         <Game
           gameStatus={gameStatus}
