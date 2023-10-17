@@ -1,6 +1,13 @@
-export default function Keyboard({ pressedKey, handlePressedKey }) {
+import { useState } from "react";
+
+export default function Keyboard({ onKeyDown }) {
+  const [pressedKey, setPressedKey] = useState(null);
+
   function handleKeyDown(event) {
-    handlePressedKey(event.key);
+    if (event.key.length == 1) {
+      setPressedKey(event.key);
+    }
+    onKeyDown(event);
   }
 
   return (

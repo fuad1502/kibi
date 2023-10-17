@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
   const batchRead = 100;
-  const [pressedKey, setPressedKey] = useState(null);
   const [wordIndex, setWordIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
   const [words, setWords] = useState([]);
@@ -62,7 +61,8 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
     setJustRestarted(true);
   }
 
-  function handlePressedKey(pressedKey) {
+  function handlePressedKey(event) {
+    const pressedKey = event.key;
     if (gameStatus == "ENDED") {
       return;
     }
@@ -96,7 +96,6 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
         wordScores,
         startWord,
       );
-      setPressedKey(pressedKey);
       setWordIndex(updatedStates.wordIndex);
       setStartWord(updatedStates.startWord);
     }
@@ -114,7 +113,7 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
         wordScores={wordScores}
         startWord={startWord}
       />
-      <Keyboard pressedKey={pressedKey} handlePressedKey={handlePressedKey} />
+      <Keyboard onKeyDown={handlePressedKey} />
       <Score gameStatus={gameStatus} timer={timer} wordScores={wordScores} />
     </div>
   );
