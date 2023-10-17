@@ -4,7 +4,7 @@ import Score from "./Score";
 import { getRandomWords } from "./TextGenerator";
 import { useState } from "react";
 
-export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
+export default function Game({ gameStatus, setGameStatus, timer, onGameStart }) {
   const batchRead = 100;
   const [wordIndex, setWordIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
@@ -73,7 +73,7 @@ export default function Game({ gameStatus, setGameStatus, timer, startTimer }) {
     if (gameStatus == "INIT") {
       setGameStatus("STARTED");
       setJustRestarted(false);
-      startTimer();
+      onGameStart();
     }
 
     let updatedStates;

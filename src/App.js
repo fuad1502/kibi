@@ -9,7 +9,7 @@ export default function App() {
   const [seconds, setSeconds] = useState(0);
   const [engage, setEngage] = useState(false);
 
-  function startTimer() {
+  function handleGameStart() {
     setSeconds(timer);
   }
 
@@ -58,7 +58,7 @@ export default function App() {
           gameStatus={gameStatus}
           setGameStatus={setGameStatus}
           timer={timer}
-          startTimer={startTimer}
+          onGameStart={handleGameStart}
         />
       </div>
     </div>
